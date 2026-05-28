@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clientes | Optica Lima</title>
+  <link rel="preload" href="../assets/logo/Logo.jpg" as="image">
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body data-protected="true">
+  <aside class="sidebar">
+    <a class="logo" href="dashboard.html">
+      <img src="../assets/logo/Logo.jpg" alt="Logo Optica Lima" class="sidebar-logo" loading="eager">
+      <span class="logo-text">OPTICA LIMA TU VISIÓN,
+        ES NUESTRA PRIORIDAD</span>
+    </a>
+    <nav>
+      <a href="dashboard.html"><span class="nav-icon">01</span>Resumen</a>
+      <a href="clientes.html"><span class="nav-icon">02</span>Clientes</a>
+      <a href="ventas.html"><span class="nav-icon">03</span>Ventas</a>
+      <a href="gastos.html"><span class="nav-icon">04</span>Gastos</a>
+      <a href="auditoria.html"><span class="nav-icon">05</span>Auditoria</a>
+    </nav>
+    <button class="logout-button" data-logout type="button">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17l1.4-1.4L8.8 13H20v-2H8.8l2.6-2.6L10 7l-5 5 5 5z"/><path d="M4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+      Cerrar sesion
+    </button>
+  </aside>
+
+  <main class="app-main">
+    <header class="topbar">
+      <div>
+        <span class="eyebrow">Ficha optometrica</span>
+        <h1>Clientes</h1>
+      </div>
+      <button class="secondary-button" data-export-clients type="button">Descargar Excel</button>
+    </header>
+
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <span class="eyebrow">Registro</span>
+          <h2>Nuevo cliente</h2>
+        </div>
+      </div>
+      <form class="form-grid" data-client-form novalidate>
+        <h3>Datos personales</h3>
+        <label>Nombres completos <input name="full_name" required autocomplete="name" placeholder="Ej: Juan Perez Garcia"></label>
+        <label>DNI <input name="dni" inputmode="numeric" maxlength="8" required placeholder="12345678"></label>
+        <label>Celular <input name="phone" inputmode="numeric" maxlength="9" required placeholder="987654321"></label>
+        <label>Correo <input name="email" type="email" placeholder="correo@ejemplo.com"></label>
+        <label>Direccion <input name="address" placeholder="Av. Lima 123"></label>
+        <label>Fecha de nacimiento <input name="birth_date" type="date" required></label>
+
+        <h3>Datos visuales</h3>
+        <label>Ojo derecho <input name="right_eye" required placeholder="-1.25"></label>
+        <label>Ojo izquierdo <input name="left_eye" required placeholder="-0.75"></label>
+        <label>Esfera <input name="sphere" required></label>
+        <label>Cilindro <input name="cylinder" required></label>
+        <label>Eje <input name="axis" required></label>
+        <label>Adicion <input name="addition" required></label>
+        <label>Diagnostico <input name="diagnosis" required placeholder="Ej: Miopia leve"></label>
+        <label>Distancia pupilar <input name="pupillary_distance"></label>
+        <label class="span-2">Observaciones <textarea name="observations" rows="3" placeholder="Notas adicionales..."></textarea></label>
+
+        <h3>Datos de compra</h3>
+        <label>Producto <input name="product" required placeholder="Ej: Lentes de contacto"></label>
+        <label>Marca <input name="brand" required placeholder="Ej: Acuvue"></label>
+        <label>Precio (S/) <input name="price" type="number" step="0.01" min="0" required placeholder="0.00"></label>
+        <label>Fecha de compra <input name="purchase_date" type="date" required></label>
+        <label>Metodo de pago
+          <select name="payment_method" required>
+            <option value="Efectivo">Efectivo</option>
+            <option value="Yape">Yape</option>
+            <option value="Plin">Plin</option>
+            <option value="Tarjeta">Tarjeta</option>
+            <option value="Transferencia">Transferencia</option>
+          </select>
+        </label>
+        <div class="form-actions">
+          <button class="primary-button" type="submit">Guardar cliente</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <span class="eyebrow">Busqueda</span>
+          <h2>Historial de clientes</h2>
+        </div>
+      </div>
+      <form class="search-row" data-client-search>
+        <input name="term" placeholder="Nombre, DNI, celular o producto...">
+        <input name="purchase_date" type="date" aria-label="Fecha de compra">
+        <button class="secondary-button" type="submit">Buscar</button>
+      </form>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>DNI</th>
+              <th>Celular</th>
+              <th>Ultimo producto</th>
+              <th>Total</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody data-client-results>
+            <tr><td colspan="6" class="loading-row">Cargando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination-controls">
+        <button id="prevPage" class="secondary-button" type="button" disabled>Anterior</button>
+        <span id="pageInfo">Pagina 1 de 1</span>
+        <button id="nextPage" class="secondary-button" type="button">Siguiente</button>
+      </div>
+      <div class="history-panel" data-client-history></div>
+    </section>
+  </main>
+
+  <div class="toast" data-toast></div>
+
+  <div id="editClientModal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Editar cliente</h2>
+        <button class="modal-close" data-modal-close type="button">&times;</button>
+      </div>
+      <form class="form-grid modal-form" id="editClientForm" novalidate>
+        <input type="hidden" id="editClientId">
+        <input type="hidden" id="editMeasureId">
+
+        <h3>Datos personales</h3>
+        <label>Nombres completos <input name="full_name" id="editFullName" required></label>
+        <label>DNI <input name="dni" id="editDni" inputmode="numeric" maxlength="8" required></label>
+        <label>Celular <input name="phone" id="editPhone" inputmode="numeric" maxlength="9" required></label>
+        <label>Correo <input name="email" type="email" id="editEmail"></label>
+        <label>Direccion <input name="address" id="editAddress"></label>
+        <label>Fecha de nacimiento <input name="birth_date" type="date" id="editBirthDate" required></label>
+
+        <h3>Datos visuales</h3>
+        <label>Ojo derecho <input name="right_eye" id="editRightEye" required placeholder="-1.25"></label>
+        <label>Ojo izquierdo <input name="left_eye" id="editLeftEye" required placeholder="-0.75"></label>
+        <label>Esfera <input name="sphere" id="editSphere" required></label>
+        <label>Cilindro <input name="cylinder" id="editCylinder" required></label>
+        <label>Eje <input name="axis" id="editAxis" required></label>
+        <label>Adicion <input name="addition" id="editAddition" required></label>
+        <label>Diagnostico <input name="diagnosis" id="editDiagnosis" required></label>
+        <label>Distancia pupilar <input name="pupillary_distance" id="editPupillaryDistance"></label>
+        <label class="span-2">Observaciones
+          <textarea name="observations" id="editObservations" rows="2"></textarea>
+        </label>
+
+        <div class="form-actions">
+          <button class="secondary-button" type="button" data-modal-close>Cancelar</button>
+          <button class="primary-button" type="submit">Guardar cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/clientes.js"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auditoria | Optica Lima</title>
+  <link rel="preload" href="../assets/logo/Logo.jpg" as="image">
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body data-protected="true">
+  <aside class="sidebar">
+    <a class="logo" href="dashboard.html">
+      <img src="../assets/logo/Logo.jpg" alt="Logo Optica Lima" class="sidebar-logo" loading="eager">
+      <span class="logo-text">OPTICA LIMA TU VISIÓN,
+        ES NUESTRA PRIORIDAD</span>
+    </a>
+    <nav>
+      <a href="dashboard.html"><span class="nav-icon">01</span>Resumen</a>
+      <a href="clientes.html"><span class="nav-icon">02</span>Clientes</a>
+      <a href="ventas.html"><span class="nav-icon">03</span>Ventas</a>
+      <a href="gastos.html"><span class="nav-icon">04</span>Gastos</a>
+      <a href="auditoria.html"><span class="nav-icon">05</span>Auditoria</a>
+    </nav>
+    <button class="logout-button" data-logout type="button">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17l1.4-1.4L8.8 13H20v-2H8.8l2.6-2.6L10 7l-5 5 5 5z"/><path d="M4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+      Cerrar sesion
+    </button>
+  </aside>
+
+  <main class="app-main">
+    <header class="topbar">
+      <div>
+        <span class="eyebrow">Trazabilidad del sistema</span>
+        <h1>Auditoria</h1>
+      </div>
+      <span class="user-pill" data-user-email></span>
+    </header>
+
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <span class="eyebrow">Filtros</span>
+          <h2>Historial de actividad</h2>
+        </div>
+        <button class="secondary-button" data-audit-reset type="button">Limpiar filtros</button>
+      </div>
+
+      <form class="audit-filters" data-audit-filters>
+        <label>Buscar
+          <input name="search" placeholder="Usuario, accion o registro afectado">
+        </label>
+        <label>Usuario
+          <input name="usuario" placeholder="Nombre o correo">
+        </label>
+        <label>Fecha
+          <input name="fecha" type="date">
+        </label>
+        <label>Tipo
+          <select name="accion">
+            <option value="">Todos</option>
+            <option value="CREATE">CREATE</option>
+            <option value="UPDATE">UPDATE</option>
+            <option value="DELETE">DELETE</option>
+            <option value="LOGIN">LOGIN</option>
+            <option value="LOGOUT">LOGOUT</option>
+          </select>
+        </label>
+        <label>Modulo
+          <select name="modulo">
+            <option value="">Todos</option>
+            <option value="auth">Auth</option>
+            <option value="clients">Clientes</option>
+            <option value="sales">Ventas</option>
+            <option value="expenses">Gastos</option>
+            <option value="purchases">Compras</option>
+            <option value="visual_measures">Medidas visuales</option>
+          </select>
+        </label>
+        <div class="form-actions audit-filter-actions">
+          <button class="primary-button" type="submit">Aplicar filtros</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <span class="eyebrow">Ultimas actividades</span>
+          <h2><span data-audit-total>0</span> registros encontrados</h2>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Fecha y hora</th>
+              <th>Usuario</th>
+              <th>Tipo</th>
+              <th>Modulo</th>
+              <th>Registro</th>
+              <th>Descripcion</th>
+            </tr>
+          </thead>
+          <tbody data-audit-results>
+            <tr><td colspan="6" class="loading-row">Cargando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination-controls">
+        <button class="secondary-button" data-audit-prev type="button" disabled>Anterior</button>
+        <span data-audit-page>Pagina 1 de 1</span>
+        <button class="secondary-button" data-audit-next type="button" disabled>Siguiente</button>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" data-toast></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/auditoria.js"></script>
+</body>
+</html>
