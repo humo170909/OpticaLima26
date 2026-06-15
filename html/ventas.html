@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ventas | Óptica Lima</title>
+  <meta name="description" content="Registro de ventas — Óptica Lima">
+  <link rel="preload" href="../assets/logo/Logo.jpg" as="image">
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/vendor/sweetalert2.all.min.js"></script>
+</head>
+<body data-protected="true" data-module="ventas">
+
+  <aside class="sidebar">
+    <a class="logo" href="dashboard.html" aria-label="Ir al dashboard">
+      <img src="../assets/logo/Logo.jpg" alt="Logo Óptica Lima" class="sidebar-logo" loading="eager">
+      <span class="logo-text">Óptica Lima — Tu visión,<br>es nuestra prioridad</span>
+    </a>
+
+    <nav aria-label="Navegación principal">
+      <a href="dashboard.html"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>Resumen</a>
+      <a href="clientes.html"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></span>Clientes</a>
+      <a href="ventas.html"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></span>Ventas</a>
+      <a href="gastos.html"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span>Gastos</a>
+      <a href="auditoria.html"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>Auditoría</a>
+    </nav>
+
+    <button class="logout-button" data-logout type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/>
+      </svg>
+      Cerrar sesión
+    </button>
+  </aside>
+
+  <main class="app-main">
+    <header class="topbar">
+      <div>
+        <span class="eyebrow">Ingresos diarios</span>
+        <h1>Ventas</h1>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="secondary-button" data-export-movements type="button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Exportar Excel
+        </button>
+        <div class="theme-switcher">
+          <button class="secondary-button" data-theme-toggle type="button" title="Cambiar tema">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+            Tema
+          </button>
+          <div class="theme-dropdown" data-theme-dropdown>
+            <button data-theme-set="blue"><span class="theme-swatch" style="background:#2563eb"></span>Azul Corporativo</button>
+            <button data-theme-set="dark"><span class="theme-swatch" style="background:#1f2937"></span>Oscuro</button>
+            <button data-theme-set="green"><span class="theme-swatch" style="background:#16a34a"></span>Verde Empresarial</button>
+            <button data-theme-set="purple"><span class="theme-swatch" style="background:#7c3aed"></span>Morado Premium</button>
+            <button data-theme-set="light"><span class="theme-swatch" style="background:#e5e7eb;border-color:#d1d5db"></span>Claro Profesional</button>
+          </div>
+        </div>
+        <span class="user-pill" data-user-email></span>
+      </div>
+    </header>
+
+    <section class="split-layout">
+      <form class="panel compact-form" data-movement-form novalidate>
+        <div class="panel-header"><h2>Nueva venta</h2></div>
+        <label>Descripción <input name="description" required placeholder="Ej: Lentes de contacto"></label>
+        <label>Monto (S/) <input name="amount" type="number" step="0.01" min="0" required placeholder="0.00"></label>
+        <label>Fecha <input name="movement_date" type="date" required></label>
+        <label>Método de pago
+          <select name="payment_method" required>
+            <option value="">Seleccionar…</option>
+            <option value="Efectivo">Efectivo</option>
+            <option value="Yape">Yape</option>
+            <option value="Plin">Plin</option>
+            <option value="Tarjeta">Tarjeta</option>
+            <option value="Transferencia">Transferencia</option>
+          </select>
+        </label>
+        <button class="primary-button" type="submit">Registrar venta</button>
+      </form>
+
+      <section class="panel">
+        <div class="panel-header">
+          <div>
+            <span class="eyebrow">Últimos movimientos</span>
+            <h2>Total: <span data-movement-total>S/ 0.00</span></h2>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Descripción</th>
+                <th>Método</th>
+                <th>Monto</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody data-movement-results>
+              <tr><td colspan="5" class="loading-row">Cargando…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div class="toast" data-toast role="status" aria-live="polite"></div>
+
+  <div id="editMovementModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="editMovementTitle">
+    <div class="modal-content modal-sm">
+      <div class="modal-header">
+        <h2 id="editMovementTitle">Editar venta</h2>
+        <button class="modal-close" data-modal-close type="button" aria-label="Cerrar">&times;</button>
+      </div>
+      <form class="compact-form modal-form" id="editMovementForm" novalidate>
+        <input type="hidden" id="editMovementId">
+        <label>Descripción <input id="editMovementDescription" required></label>
+        <label>Monto (S/) <input id="editMovementAmount" type="number" step="0.01" min="0" required></label>
+        <label>Fecha <input id="editMovementDate" type="date" required></label>
+        <label>Método de pago
+          <select id="editMovementPayment" required>
+            <option value="Efectivo">Efectivo</option>
+            <option value="Yape">Yape</option>
+            <option value="Plin">Plin</option>
+            <option value="Tarjeta">Tarjeta</option>
+            <option value="Transferencia">Transferencia</option>
+          </select>
+        </label>
+        <div class="form-actions">
+          <button class="secondary-button" type="button" data-modal-close>Cancelar</button>
+          <button class="primary-button" type="submit">Guardar cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/vendor/supabase.min.js"></script>
+  <script src="../js/supabase.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/movimientos.js"></script>
+</body>
+</html>
